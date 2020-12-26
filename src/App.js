@@ -1,17 +1,38 @@
 import React from 'react';
 import Navigation from './components/navigation/Navigation';
 import Logo from './components/Logo/Logo';
-import { Container } from 'semantic-ui-react';
-
+import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
+import Rank from "./components/Rank";
+import { Grid } from 'semantic-ui-react';
+import './App.css';
 
 function App() {
   return (
-    <Container>
+    <div className="App">
       <Navigation />
       <Logo />
-     {/* <ImageLingForm />
-      <FaceRecognition />*/}
-    </Container>
+        
+     <Grid stackable padded columns={3}>
+     <Grid.Row >
+      <Grid.Column>
+      <Rank/>
+      </Grid.Column>
+      <Grid.Column >
+      <ImageLinkForm />
+      </Grid.Column>
+    </Grid.Row>
+     
+  
+     </Grid>
+     
+     
+     
+        
+    
+     
+      { /* <FaceRecognition />*/}
+     
+    </div>
   );
 }
 
