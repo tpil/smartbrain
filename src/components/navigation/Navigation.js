@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 const Navigation = () => {
     return (
-        <nav style={{'float':'right', 'margin':'10px'}}>
+        <nav >
             <Button animated='vertical'  color='violet'>
                 <Button.Content hidden>Sign Out</Button.Content>
                 <Button.Content visible>

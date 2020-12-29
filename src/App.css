@@ -1,7 +1,15 @@
+body{
+   margin:0;
+   padding:0; 
+}
 
 .flex_center{
 display:flex;
 justify-content: center;
 
 }
-
+.particles{
+position: fixed;
+top:0;
+    z-index: -1;
+}

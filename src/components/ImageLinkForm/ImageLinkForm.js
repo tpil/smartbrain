@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
  const ImageLinkForm = () => {
     return (
-        <div  >
+        <div>
             
             <Input 
                 action={{
