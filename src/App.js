@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navigation from './components/navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
@@ -10,40 +10,20 @@ import './App.css';
 const particlesParams=  {
   
   "particles": {
-    "bounce": {
-      "horizontal": {
-        "random": {
-          "enable": false,
-          "minimumValue": 0.1
-        },
-        "value": 1
-      },
-      "vertical": {
-        "random": {
-          "enable": false,
-          "minimumValue": 0.1
-        },
-        "value": 1
-      }
-    },
-  
+    
     "color": {
-      "value": "#ffffff",
-      "animation": {
-        "enable": true,
-        "speed": 50,
-        "sync": false
-      }
+      "value": "#8F25B1",
+      
     },
     
     "number": {
+      "value":100,
       "density": {
         "enable": true,
-        "area": 800,
-        "factor": 1000
-      },
-      "limit": 0,
-      "value": 100
+        "value": 800,
+        
+      }
+      
     }
     
   }
@@ -52,9 +32,18 @@ const particlesParams=  {
 
 
 function App() {
+  const [input, setInput] = useState('');
+
+  const onInputChange =(event) =>{
+    console.log(event.target.value);
+    
+    }
+    const onSubmitImage = () =>{
+      console.log('clicked');
+    }
   return (
     <div className="App">
-    <Particles className="particles" params={particlesParams}/>
+    <Particles className="particles" params={{particlesParams}}/>
 
      <Grid stackable padded>
      <Grid.Row>
@@ -71,7 +60,7 @@ function App() {
         <Rank/>
         </Grid.Column>
         <Grid.Column >
-        <ImageLinkForm />
+        <ImageLinkForm onInputChange={onInputChange} onSubmitImage={onSubmitImage}/>
         </Grid.Column>
       </Grid.Row>
      </Grid>
