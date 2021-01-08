@@ -2,13 +2,14 @@ import React from 'react';
 import { Image } from 'semantic-ui-react';
 import './FaceRecognition.css';
 
-const FaceRecognition = ({imageUrl,transitionEffect}) => {
+const FaceRecognition = ({imageUrl,box,transitionEffect}) => {
     
 
     return (
-        <div className={transitionEffect}>
-            <div className="img-container">
-                <Image id="inputimage"  src={imageUrl}   /> 
+        <div >
+            <div className='img-container'>
+                <Image   id="inputimage"  src={imageUrl}   /> 
+                <div className='bounding-box' style={{top:box.topRow, right:box.rightCol, bottom: box.bottomRow, left:box.leftCol}}></div>
             </div>    
         </div>
     )

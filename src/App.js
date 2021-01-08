@@ -46,7 +46,7 @@ function App() {
        // app.models.predict({id: Clarifai.FACE_DETECT_MODEL},imageURL).then(
         app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},imageURL).then( 
           function(response) {
-            calculateFaceLocation(response);
+            displayFaceBox(calculateFaceLocation(response));
           },
           function(err) {
             console.log(err);
@@ -57,16 +57,28 @@ function App() {
 
    const  calculateFaceLocation = (res) =>{
       const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
+      //console.log(clarifaiFace);
       const image = document.getElementById('inputimage');
       const width= Number(image.width);
       const height =Number(image.height);
       console.log(width,height);
+      return {
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * height,
+        rightCol: width - (clarifaiFace.right_col * width),
+        bottomRow: height - (clarifaiFace.bottom_row * height)
+      }
 
    } 
+
+   const displayFaceBox = (box) =>{
+     console.log(box);
+    setFaceBox(box);
+   }
   return (
     <div className="App">
     <Particles className="particles" params={{particlesOptions}}/>
-
+   
      <Grid padded> 
       <Grid.Row>
           <Grid.Column floated="left" >
@@ -87,10 +99,15 @@ function App() {
         <ImageLinkForm onInputChange={onInputChange} onSubmitImage={onSubmitImage}/>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row centered>
-        <FaceRecognition imageUrl = {imageURL} transitionEffect={transition} />
+      <Grid.Row>
+      <Grid.Column >
+      <FaceRecognition imageUrl = {imageURL} box={faceBox} transitionEffect={transition} />
+      </Grid.Column>
       </Grid.Row>
      </Grid>
+     
+     
+       
      
      
     </div>
