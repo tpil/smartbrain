@@ -1,0 +1,11 @@
+.img-container{
+    background-color: aliceblue; 
+    padding:5px; 
+    border-radius: 10px;
+    max-width:500px;
+    margin:auto;
+}
+
+.hidden{
+    display: none;
+}
