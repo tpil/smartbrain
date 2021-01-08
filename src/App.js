@@ -12,25 +12,16 @@ import './App.css';
 
 const app = new Clarifai.App({apiKey: '1eab0b351fac408285831bc6c61e6b9f'});
 
-const particlesParams=  {
-  
-  "particles": {
+const particlesOptions = {
+  particles: {
     
-    "color": {
-      "value": "#8F25B1",
-      
-    },
-    
-    "number": {
-      "value":30,
-      "density": {
-        "enable": true,
-        "area_value": 800,
-        
+    number: {
+      value: 80,
+      density: {
+        enable: true,
+        value_area: 800
       }
-      
     }
-    
   }
 }
 
@@ -40,6 +31,8 @@ function App() {
   const [input, setInput] = useState('');
   const [imageURL,setImageURL] = useState('');
   const [transition,setTransition] =useState('');
+  const [faceBox,setFaceBox]=useState({});
+
   const onInputChange =(event) =>{
     console.log(event.target.value);
     setInput(event.target.value);
@@ -50,20 +43,29 @@ function App() {
       setImageURL(input);
       console.log('clicked');
      
-        app.models.predict({id: Clarifai.FACE_DETECT_MODEL},imageURL).then(
+       // app.models.predict({id: Clarifai.FACE_DETECT_MODEL},imageURL).then(
+        app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},imageURL).then( 
           function(response) {
-            console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
+            calculateFaceLocation(response);
           },
           function(err) {
-            // there was an error
+            console.log(err);
           }
         );
-    
      
     }
+
+   const  calculateFaceLocation = (res) =>{
+      const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
+      const image = document.getElementById('inputimage');
+      const width= Number(image.width);
+      const height =Number(image.height);
+      console.log(width,height);
+
+   } 
   return (
     <div className="App">
-    <Particles className="particles" params={{particlesParams}}/>
+    <Particles className="particles" params={{particlesOptions}}/>
 
      <Grid padded> 
       <Grid.Row>
@@ -89,12 +91,6 @@ function App() {
         <FaceRecognition imageUrl = {imageURL} transitionEffect={transition} />
       </Grid.Row>
      </Grid>
-     
-     
-     
-        
-    
-     
      
      
     </div>

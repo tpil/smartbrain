@@ -8,7 +8,7 @@ const FaceRecognition = ({imageUrl,transitionEffect}) => {
     return (
         <div className={transitionEffect}>
             <div className="img-container">
-                <Image  src={imageUrl}   /> 
+                <Image id="inputimage"  src={imageUrl}   /> 
             </div>    
         </div>
     )
