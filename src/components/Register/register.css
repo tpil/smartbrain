@@ -1,0 +1,15 @@
+.register-form{
+    padding:10px;
+    background-color: white;
+    border-radius: 5px;
+}
+.register-link{
+    cursor: pointer;
+
+
+}
+.register-link:hover{
+    cursor: pointer;
+   border-bottom:2px solid purple;
+
+}

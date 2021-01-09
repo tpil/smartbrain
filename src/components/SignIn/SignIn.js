@@ -1,13 +1,14 @@
 import React from 'react'
-import { Grid,Segment,Form,Button,Icon } from 'semantic-ui-react';
+import { Grid,Form,Button,Icon } from 'semantic-ui-react';
 import './signIn.css';
 
-const SignIn = () => {
+const SignIn = ({onRouteChange}) => {
     return (
         
         <Grid centered columns={3} style={{marginTop:'10px'}} >
         <Grid.Column className="signIn-form">
         <Form >
+        
             <Form.Field>
             <label>Email</label>
             <input type="email"/>
@@ -17,17 +18,18 @@ const SignIn = () => {
             <input type='password' />
             </Form.Field>
            
-            <Button  animated='vertical'  color='violet' type='submit' floated='right'>
+            <Button  animated='vertical'  color='violet' type='submit' floated='right' onClick={()=> onRouteChange('home')}>
                 <Button.Content hidden>Sign In</Button.Content>
                 <Button.Content visible>
                     <Icon name='sign in' />
                 </Button.Content>
             </Button> 
           
-            <Button basic color='purple' >Register</Button>
+            <Button basic color='purple' onClick={()=> onRouteChange('register')}> Register</Button>
          </Form>
         </Grid.Column>
         </Grid>
+        
      
     )
         

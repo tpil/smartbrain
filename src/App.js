@@ -5,6 +5,7 @@ import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank";
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
+import Register from './components/Register/Register';
 import { Grid } from 'semantic-ui-react';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
@@ -38,7 +39,7 @@ function App() {
 
 
   const onInputChange =(event) =>{
-    console.log(event.target.value);
+    //console.log(event.target.value);
     setInput(event.target.value);
     }
 
@@ -76,23 +77,28 @@ function App() {
    } 
 
    const displayFaceBox = (box) =>{
-     console.log(box);
+     //console.log(box);
     setFaceBox(box);
+   }
+
+   const onRouteChange = (newRoute) =>{
+
+    setRoute(newRoute);
+
    }
   return (
     <div className="App">
     <Particles className="particles" params={{particlesOptions}}/>
     { /*We use the route state to create routers for login */
-      route==='signin' 
-        ? <SignIn />
-        :<React.Fragment>
-            <Grid padded> 
+     (route==='home')
+        ?<React.Fragment>
+            <Grid  padded> 
                   <Grid.Column  floated="left" >
                   <Logo />
                   </Grid.Column>
               
                   <Grid.Column > 
-                  <Navigation />
+                  <Navigation onRouteChange ={onRouteChange}/>
                   </Grid.Column>
             </Grid>
             <Grid stackable padded>
@@ -111,7 +117,11 @@ function App() {
                 </Grid.Row>
             </Grid>
         </React.Fragment>  
-      
+        :( route==='signin' 
+            ?<SignIn onRouteChange ={onRouteChange}/> 
+            :<Register onRouteChange ={onRouteChange}/>
+          )    
+     
     }
             
      
