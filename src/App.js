@@ -4,6 +4,7 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank";
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 import { Grid } from 'semantic-ui-react';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
@@ -28,10 +29,13 @@ const particlesOptions = {
 
 
 function App() {
+  /*Hooks states*/
   const [input, setInput] = useState('');
   const [imageURL,setImageURL] = useState('');
   const [transition,setTransition] =useState('');
   const [faceBox,setFaceBox]=useState({});
+  const [route,setRoute] = useState('signin');
+
 
   const onInputChange =(event) =>{
     console.log(event.target.value);
@@ -78,37 +82,38 @@ function App() {
   return (
     <div className="App">
     <Particles className="particles" params={{particlesOptions}}/>
-   
-     <Grid padded> 
-      <Grid.Row>
-          <Grid.Column floated="left" >
-          <Logo />
-          </Grid.Column>
+    { /*We use the route state to create routers for login */
+      route==='signin' 
+        ? <SignIn />
+        :<React.Fragment>
+            <Grid padded> 
+                  <Grid.Column  floated="left" >
+                  <Logo />
+                  </Grid.Column>
+              
+                  <Grid.Column > 
+                  <Navigation />
+                  </Grid.Column>
+            </Grid>
+            <Grid stackable padded>
+                <Grid.Row>
+                  <Grid.Column width={7} >
+                  <Rank/>
+                  </Grid.Column>
+                  <Grid.Column >
+                  <ImageLinkForm onInputChange={onInputChange} onSubmitImage={onSubmitImage}/>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column >
+                  <FaceRecognition imageUrl = {imageURL} box={faceBox} transitionEffect={transition} />
+                  </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        </React.Fragment>  
       
-          <Grid.Column floated="right"> 
-          <Navigation />
-          </Grid.Column>
-      </Grid.Row>
-     </Grid>
-     <Grid stackable padded>
-      <Grid.Row>
-        <Grid.Column width={7} >
-        <Rank/>
-        </Grid.Column>
-        <Grid.Column >
-        <ImageLinkForm onInputChange={onInputChange} onSubmitImage={onSubmitImage}/>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-      <Grid.Column >
-      <FaceRecognition imageUrl = {imageURL} box={faceBox} transitionEffect={transition} />
-      </Grid.Column>
-      </Grid.Row>
-     </Grid>
-     
-     
-       
-     
+    }
+            
      
     </div>
   );
