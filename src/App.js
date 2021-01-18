@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from './components/navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
@@ -37,6 +37,13 @@ function App() {
   const [faceBox,setFaceBox]=useState({});
   const [route,setRoute] = useState('signin');
 
+
+  useEffect(() => {
+    fetch('http://localhost:3000/')
+    .then(response=>response.json())
+    .then(console.log);//its the same with .then(data=>console.log(data))
+ 
+  }) ;
 
   const onInputChange =(event) =>{
     //console.log(event.target.value);

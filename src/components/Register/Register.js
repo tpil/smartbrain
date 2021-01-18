@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid,Form,Button,Icon } from 'semantic-ui-react';
+import { Grid,Form,Button} from 'semantic-ui-react';
 import './register.css';
 
 const Register = ({onRouteChange}) => {
