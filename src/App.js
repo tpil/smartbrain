@@ -32,32 +32,74 @@ const particlesOptions = {
 function App() {
   /*Hooks states*/
   const [input, setInput] = useState('');
-  const [imageURL,setImageURL] = useState('');
+  const [imageURL,setImageURL] = useState(input);
   const [transition,setTransition] =useState('');
   const [faceBox,setFaceBox]=useState({});
   const [route,setRoute] = useState('signin');
+  //user
+  const [isSignedIn,setIsSignedIn] = useState(false);
+  const [user,setUser] = useState({
+      id:'',
+      name:'',
+      email:'',
+      password:'',
+      entries:0,
+      joined: ''
+  });
 
+  const loadUser = (data)=>{
+    setUser({
+      id:data.id,
+      name:data.name,
+      email:data.email,
+      password:data.password,
+      entries:data.entries,
+      joined:data.joined
+
+    });
+
+  }
 
   useEffect(() => {
     fetch('http://localhost:3000/')
     .then(response=>response.json())
-    .then(console.log);//its the same with .then(data=>console.log(data))
+    .then(console.log);// console.log its the same with .then(data=>console.log(data))
  
   }) ;
 
+  
   const onInputChange =(event) =>{
     //console.log(event.target.value);
     setInput(event.target.value);
+  
+      
     }
+
+    useEffect(() => {
+      setImageURL(input);
+      setFaceBox({});
+    }, [input]);
 
   const onSubmitImage = () =>{
    
-      setImageURL(input);
-      console.log('clicked');
      
-       // app.models.predict({id: Clarifai.FACE_DETECT_MODEL},imageURL).then(
-        app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},imageURL).then( 
+       // app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},imageURL).then(
+        app.models.predict({id:Clarifai.FACE_DETECT_MODEL },imageURL).then( 
           function(response) {
+            if(response){
+              fetch('http://localhost:3000/image',{
+                method:'put',
+                headers:{'content-type':'application/json'},
+                body:JSON.stringify({
+                  id:user.id
+                })
+              })
+              .then(response=>response.json())
+              .then(count=>{
+                //*Object.assign() allow us to change only specific parametres in an object
+                setUser(Object.assign(user,{entries:count}));
+              })
+            }
             displayFaceBox(calculateFaceLocation(response));
           },
           function(err) {
@@ -67,9 +109,11 @@ function App() {
      
     }
 
+   
+
    const  calculateFaceLocation = (res) =>{
       const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
-      //console.log(clarifaiFace);
+      console.log(clarifaiFace);
       const image = document.getElementById('inputimage');
       const width= Number(image.width);
       const height =Number(image.height);
@@ -79,6 +123,7 @@ function App() {
         topRow: clarifaiFace.top_row * height,
         rightCol: width - (clarifaiFace.right_col * width),
         bottomRow: height - (clarifaiFace.bottom_row * height)
+       
       }
 
    } 
@@ -111,7 +156,7 @@ function App() {
             <Grid stackable padded>
                 <Grid.Row>
                   <Grid.Column width={7} >
-                  <Rank/>
+                  <Rank userName ={user.name} userMail={user.email} userEntries={user.entries}/>
                   </Grid.Column>
                   <Grid.Column >
                   <ImageLinkForm onInputChange={onInputChange} onSubmitImage={onSubmitImage}/>
@@ -125,8 +170,8 @@ function App() {
             </Grid>
         </React.Fragment>  
         :( route==='signin' 
-            ?<SignIn onRouteChange ={onRouteChange}/> 
-            :<Register onRouteChange ={onRouteChange}/>
+            ?<SignIn onRouteChange ={onRouteChange} loadUser={loadUser}/> 
+            :<Register onRouteChange ={onRouteChange} newUser={loadUser}/>
           )    
      
     }

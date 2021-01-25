@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Grid,Form,Button,Icon } from 'semantic-ui-react';
 import './signIn.css';
 
-const SignIn = ({onRouteChange}) => {
+const SignIn = ({onRouteChange, loadUser}) => {
     const [signInEmail,setSignInEmail] = useState('');
     const [signInPassword,setSignInPassword] = useState('');
 
@@ -26,8 +26,10 @@ const SignIn = ({onRouteChange}) => {
             })
         })
         .then(response=>response.json())
-        .then(data=>{
-            if(data==='success'){
+        .then(user=>{
+            if(user.id){
+                //if Server respond with a user
+                loadUser(user);
                 onRouteChange('home');
             }
         })

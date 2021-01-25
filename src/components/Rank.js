@@ -1,19 +1,19 @@
 import React from 'react'
 import { Segment, Label, Icon } from 'semantic-ui-react';
 
-const Rank = () => {
+const Rank = ({userName,userMail,userEntries}) => {
     return (
         <Segment style={{'maxWidth':'200px'}}>
-       <p style={{textAlign:'right'}}>
-        <Label  as='a' color='blue' image>
+       <p >
+        <Label  as='a' color='blue' image style={{"cursor":"default"}}>
             <Icon  name='user' />
-                Veronika
+               {userName}
             </Label>
         </p>
         
-        <p>Email:</p>
-        <p>Rank:#5</p>
-        <p>Times searched:</p>
+        <p><b>Email: </b>{userMail}</p>
+        <p><b>Rank: </b>#5</p>
+        <p><b>Times searched: </b>{userEntries}</p>
        
         </Segment>
           
