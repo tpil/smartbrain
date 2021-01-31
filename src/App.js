@@ -48,6 +48,7 @@ function App() {
   });
 
   const loadUser = (data)=>{
+    console.log(data);
     setUser({
       id:data.id,
       name:data.name,
@@ -63,7 +64,7 @@ function App() {
   useEffect(() => {
     fetch('http://localhost:3000/')
     .then(response=>response.json())
-    .then(console.log);// console.log its the same with .then(data=>console.log(data))
+   //.then(console.log); //console.log its the same with .then(data=>console.log(data))
  
   }) ;
 
@@ -97,7 +98,8 @@ function App() {
               .then(response=>response.json())
               .then(count=>{
                 //*Object.assign() allow us to change only specific parametres in an object
-                setUser(Object.assign(user,{entries:count}));
+                //setUser(Object.assign(user,{entries:count}));
+                setUser({...user, entries:count});
               })
             }
             displayFaceBox(calculateFaceLocation(response));
@@ -113,11 +115,11 @@ function App() {
 
    const  calculateFaceLocation = (res) =>{
       const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
-      console.log(clarifaiFace);
+      //console.log(clarifaiFace);
       const image = document.getElementById('inputimage');
       const width= Number(image.width);
       const height =Number(image.height);
-      console.log(width,height);
+      //console.log(width,height);
       return {
         leftCol: clarifaiFace.left_col * width,
         topRow: clarifaiFace.top_row * height,

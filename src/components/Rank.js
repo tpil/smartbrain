@@ -12,8 +12,7 @@ const Rank = ({userName,userMail,userEntries}) => {
         </p>
         
         <p><b>Email: </b>{userMail}</p>
-        <p><b>Rank: </b>#5</p>
-        <p><b>Times searched: </b>{userEntries}</p>
+        <p><b>Times faces detected: </b>{userEntries}</p>
        
         </Segment>
           

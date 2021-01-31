@@ -2,7 +2,7 @@ import React, { useState }from 'react';
 import { Grid,Form,Button} from 'semantic-ui-react';
 import './register.css';
 
-const Register = ({onRouteChange}) => {
+const Register = ({onRouteChange,newUser}) => {
     //Hooks
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -22,7 +22,7 @@ const Register = ({onRouteChange}) => {
     }
 
     const onSubmitRegister = () =>{
-        //console.log(signInEmail,signInPassword);
+        console.log(name,email);
         //POST request to server. If Name, email& passowrd match cretiria srver responses success register
         fetch('http://localhost:3000/register',{
             method:'post',
@@ -36,6 +36,7 @@ const Register = ({onRouteChange}) => {
         .then(response=>response.json())
         .then(user=>{
             if(user){
+                newUser(user);
                 onRouteChange('home');
             }
         })
