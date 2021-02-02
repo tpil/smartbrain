@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid,Form,Button,Icon } from 'semantic-ui-react';
+import { Grid,Form,Button,Icon, Message } from 'semantic-ui-react';
 import './signIn.css';
 
 const SignIn = ({onRouteChange, loadUser}) => {
@@ -37,8 +37,9 @@ const SignIn = ({onRouteChange, loadUser}) => {
     }
 
     return (
-       
+        
         <Grid centered columns={3} style={{marginTop:'10px'}} >
+        <Grid.Row><h1 >Welcome to Smart-Brain</h1></Grid.Row>
         <Grid.Column className="signIn-form">
         <Form >
         <h3 >Sign In</h3>
@@ -60,17 +61,16 @@ const SignIn = ({onRouteChange, loadUser}) => {
                 onChange={onPasswordChange}
             />
             </Form.Field>
+            <Button color='violet'  floated='right' onClick={onSubmitSignIn}>Sign In</Button>
            
-            <Button  animated='vertical'  color='violet' type='submit' floated='right' onClick={onSubmitSignIn}>
-                <Button.Content visible>Sign In</Button.Content>
-                <Button.Content hidden>
-                    <Icon name='sign in' />
-                </Button.Content>
-            </Button> 
-          
             <Button basic color='purple' onClick={()=> onRouteChange('register')}> Register</Button>
          </Form>
+         <Message info>
+            <Message.Header>Register or login with a demo account</Message.Header>
+            <p><b>email:</b> test@email.com <b>password: </b> test </p>
+         </Message>
         </Grid.Column>
+        
         </Grid>
         
      

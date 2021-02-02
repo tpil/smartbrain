@@ -11,7 +11,7 @@ import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import './App.css';
 
-
+//Moved to Back-End so its hiidne from headers req
 const app = new Clarifai.App({apiKey: '1eab0b351fac408285831bc6c61e6b9f'});
 
 const particlesOptions = {
@@ -27,6 +27,14 @@ const particlesOptions = {
   }
 }
 
+const initialState ={
+  id:'',
+  name:'',
+  email:'',
+  password:'',
+  entries:0,
+  joined: ''
+}
 
 
 function App() {
@@ -101,6 +109,7 @@ function App() {
                 //setUser(Object.assign(user,{entries:count}));
                 setUser({...user, entries:count});
               })
+              .catch(console.log)
             }
             displayFaceBox(calculateFaceLocation(response));
           },
@@ -137,9 +146,26 @@ function App() {
 
    const onRouteChange = (newRoute) =>{
 
-    setRoute(newRoute);
+      if (newRoute === 'signin'){
+        setIsSignedIn(false);
+        setInput('');
+        setImageURL('');
+        setFaceBox({});
+        setUser({
+          id:'',
+          name:'',
+          email:'',
+          password:'',
+          entries:0,
+          joined: ''
+        });
+      }else if (newRoute === 'home'){
+        setIsSignedIn(true);
+      }
 
+    setRoute(newRoute);
    }
+
   return (
     <div className="App">
     <Particles className="particles" params={{particlesOptions}}/>

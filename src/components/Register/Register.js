@@ -35,7 +35,7 @@ const Register = ({onRouteChange,newUser}) => {
         })
         .then(response=>response.json())
         .then(user=>{
-            if(user){
+            if(user.id){
                 newUser(user);
                 onRouteChange('home');
             }
@@ -74,6 +74,7 @@ const Register = ({onRouteChange,newUser}) => {
             </Form.Field>
            
             <Button color='purple' floated='right' type='submit' onClick = {onSubmitRegister}>Create account</Button>
+            <Button basic color='purple' floated='left' onClick={()=> onRouteChange('signin')}> Cancel</Button>
          </Form>
         </Grid.Column>
         </Grid>
