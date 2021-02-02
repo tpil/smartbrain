@@ -8,17 +8,16 @@ import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 import { Grid } from 'semantic-ui-react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
+//import Clarifai from 'clarifai';
 import './App.css';
 
 //Moved to Back-End so its hiidne from headers req
-const app = new Clarifai.App({apiKey: '1eab0b351fac408285831bc6c61e6b9f'});
 
-const particlesOptions = {
+
+const particlesOptions = { //attribute of background images
   particles: {
-    
     number: {
-      value: 80,
+      value: 250,
       density: {
         enable: true,
         value_area: 800
@@ -91,10 +90,15 @@ function App() {
 
   const onSubmitImage = () =>{
    
-     
-       // app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},imageURL).then(
-        app.models.predict({id:Clarifai.FACE_DETECT_MODEL },imageURL).then( 
-          function(response) {
+    fetch('http://localhost:3000/imageurl',{
+      method:'post',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({
+        imageURL:input
+      })
+    })
+    .then(response => response.json())
+    .then( response => {
             if(response){
               fetch('http://localhost:3000/image',{
                 method:'put',
@@ -123,7 +127,8 @@ function App() {
    
 
    const  calculateFaceLocation = (res) =>{
-      const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
+      //console.log('outputs:',res);
+    const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
       //console.log(clarifaiFace);
       const image = document.getElementById('inputimage');
       const width= Number(image.width);
