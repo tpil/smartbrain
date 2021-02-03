@@ -26,7 +26,7 @@ const particlesOptions = { //attribute of background images
     }
   }
 }
-
+/*
 const initialState ={
   id:'',
   name:'',
@@ -36,7 +36,7 @@ const initialState ={
   joined: ''
 }
 
-
+*/
 function App() {
   /*Hooks states*/
   const [input, setInput] = useState('');
@@ -70,7 +70,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3000/')
+    fetch('https://sheltered-cliffs-34923.herokuapp.com/')
     .then(response=>response.json())
    //.then(console.log); //console.log its the same with .then(data=>console.log(data))
  
@@ -91,7 +91,7 @@ function App() {
 
   const onSubmitImage = () =>{
 
-    fetch('http://localhost:3000/demograph',{
+    fetch('https://sheltered-cliffs-34923.herokuapp.com/demograph',{
       method:'post',
       headers:{'content-type':'application/json'},
       body:JSON.stringify({
@@ -103,7 +103,7 @@ function App() {
     .catch(console.log);
 
    
-    fetch('http://localhost:3000/imageurl',{
+    fetch('https://sheltered-cliffs-34923.herokuapp.com/imageurl',{
       method:'post',
       headers:{'content-type':'application/json'},
       body:JSON.stringify({
@@ -113,7 +113,7 @@ function App() {
     .then(response => response.json())
     .then( response => {
             if(response){
-              fetch('http://localhost:3000/image',{
+              fetch('https://sheltered-cliffs-34923.herokuapp.com/image',{
                 method:'put',
                 headers:{'content-type':'application/json'},
                 body:JSON.stringify({

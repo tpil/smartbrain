@@ -17,7 +17,7 @@ const SignIn = ({onRouteChange, loadUser}) => {
     const onSubmitSignIn = () =>{
         //console.log(signInEmail,signInPassword);
         //POST request to server. If email& passowrd match adn srver responses success we sign in
-        fetch('http://localhost:3000/signin',{
+        fetch('https://sheltered-cliffs-34923.herokuapp.com/signin',{
             method:'post',
             headers:{'content-type':'application/json'},
             body:JSON.stringify({

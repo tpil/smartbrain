@@ -24,7 +24,7 @@ const Register = ({onRouteChange,newUser}) => {
     const onSubmitRegister = () =>{
         console.log(name,email);
         //POST request to server. If Name, email& passowrd match cretiria srver responses success register
-        fetch('http://localhost:3000/register',{
+        fetch('https://sheltered-cliffs-34923.herokuapp.com/register',{
             method:'post',
             headers:{'content-type':'application/json'},
             body:JSON.stringify({
