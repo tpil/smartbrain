@@ -14,22 +14,22 @@ const FaceDescription = ({imageUrl,imageDescription}) =>{
     if(imageUrl){
         return (
            <section style={{"margin":"10px"}}>
-            <Segment>
-            <h2 style={{"textAlign":"center"}}>Image Description Tags</h2>
-                <List horizontal  style={{"maxWidth":"350px"}}>
-                  {listItems}
-                </List>
-                <p><br></br></p>
-                <p><i>*Smart Brain predicts tags related to the image</i></p>
-            </Segment>
+              <Segment>
+              <h2 style={{"textAlign":"center"}}>Image Description Tags</h2>
+                  <List horizontal  style={{"maxWidth":"350px"}}>
+                    {listItems}
+                  </List>
+                  <p><br></br></p>
+                  <p><i>*Smart Brain detects the face and predicts related tags to this image</i></p>
+              </Segment>
             </section>
         )
     }else{
       return (
         <section style={{"margin":"10px"}}>
          <Segment>
-        
-             <p><i>*Click on the detect button for face recognition and image description</i></p>
+              <p>Enter an image URL and click on the detect button to start..</p>
+             
          </Segment>
          </section>
      )

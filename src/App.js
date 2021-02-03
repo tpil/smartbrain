@@ -217,7 +217,7 @@ function App() {
 
             <div className="flex_center">
                <FaceRecognition imageUrl = {imageURL} box={faceBox} style={{"maxWidth":"500px"}} />
-                <FaceDescription  imageUrl = {imageURL}  imageDescription ={imageDescription}/>
+               <FaceDescription  imageUrl = {imageURL}  imageDescription ={imageDescription}/>
  
             </div>
         </React.Fragment>  

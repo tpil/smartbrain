@@ -3,7 +3,7 @@
 .img-style{
   
   
-    position:absolute;
+    position: relative;
     background-color: aliceblue; 
 }
 .bounding-box{
