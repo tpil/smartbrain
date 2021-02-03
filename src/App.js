@@ -4,6 +4,7 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank";
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import FaceDescription from './components/FaceDescription/FaceDescription';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 import { Grid } from 'semantic-ui-react';
@@ -40,7 +41,7 @@ function App() {
   /*Hooks states*/
   const [input, setInput] = useState('');
   const [imageURL,setImageURL] = useState(input);
-  const [transition,setTransition] =useState('');
+  const [imageDescription, setImgDescription] = useState([])
   const [faceBox,setFaceBox]=useState({});
   const [route,setRoute] = useState('signin');
   //user
@@ -89,6 +90,18 @@ function App() {
     }, [input]);
 
   const onSubmitImage = () =>{
+
+    fetch('http://localhost:3000/demograph',{
+      method:'post',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({
+        imageURL:input
+      })
+    })
+    .then(response => response.json())
+    .then(response =>setImgDescription(response.outputs[0].data.concepts))
+    .catch(console.log);
+
    
     fetch('http://localhost:3000/imageurl',{
       method:'post',
@@ -121,10 +134,12 @@ function App() {
             console.log(err);
           }
         );
-     
+      
+
+
     }
 
-   
+  
 
    const  calculateFaceLocation = (res) =>{
       //console.log('outputs:',res);
@@ -148,6 +163,8 @@ function App() {
      //console.log(box);
     setFaceBox(box);
    }
+
+
 
    const onRouteChange = (newRoute) =>{
 
@@ -195,12 +212,14 @@ function App() {
                   <ImageLinkForm onInputChange={onInputChange} onSubmitImage={onSubmitImage}/>
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column >
-                  <FaceRecognition imageUrl = {imageURL} box={faceBox} transitionEffect={transition} />
-                  </Grid.Column>
-                </Grid.Row>
             </Grid>
+           
+
+            <div className="flex_center">
+               <FaceRecognition imageUrl = {imageURL} box={faceBox} style={{"maxWidth":"500px"}} />
+                <FaceDescription  imageUrl = {imageURL}  imageDescription ={imageDescription}/>
+ 
+            </div>
         </React.Fragment>  
         :( route==='signin' 
             ?<SignIn onRouteChange ={onRouteChange} loadUser={loadUser}/> 

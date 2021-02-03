@@ -2,7 +2,11 @@
 .flex_center{
 display:flex;
 justify-content: center;
+flex-wrap: wrap;
+}
 
+.pa10{
+   margin: 5%;
 }
 .particles{
     position: absolute;
