@@ -128,7 +128,8 @@ function App() {
               })
               .catch(console.log)
             }
-            displayFaceBox(calculateFaceLocation(response));
+            if (response.outputs[0].data.regions)
+              displayFaceBox(calculateFaceLocation(response));
           },
           function(err) {
             console.log(err);
@@ -142,8 +143,8 @@ function App() {
   
 
    const  calculateFaceLocation = (res) =>{
-      //console.log('outputs:',res);
-    const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
+  
+      const clarifaiFace = res.outputs[0].data.regions[0].region_info.bounding_box;
       //console.log(clarifaiFace);
       const image = document.getElementById('inputimage');
       const width= Number(image.width);
@@ -156,6 +157,7 @@ function App() {
         bottomRow: height - (clarifaiFace.bottom_row * height)
        
       }
+    
 
    } 
 

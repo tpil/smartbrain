@@ -20,7 +20,7 @@ const FaceDescription = ({imageUrl,imageDescription}) =>{
                     {listItems}
                   </List>
                   <p><br></br></p>
-                  <p><i>*Smart Brain detects the face and predicts related tags to this image</i></p>
+                  <p><i>*Smart Brain can detect a face and predict related tags to the image</i></p>
               </Segment>
             </section>
         )
@@ -28,7 +28,7 @@ const FaceDescription = ({imageUrl,imageDescription}) =>{
       return (
         <section style={{"margin":"10px"}}>
          <Segment>
-              <p>Enter an image URL and click on the detect button to start..</p>
+              <p>Enter an image URL and click on the Analyze button to start..</p>
              
          </Segment>
          </section>

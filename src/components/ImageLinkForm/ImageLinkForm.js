@@ -6,7 +6,7 @@ import { Button, Input } from 'semantic-ui-react';
             
             <Input type='text' placeholder='Enter an image URL..' action>
                 <input onChange={onInputChange} />
-                <Button type='submit' color="purple" onClick={onSubmitImage}>Detect</Button>
+                <Button type='submit' color="purple" onClick={onSubmitImage}>Analyze</Button>
             </Input>
             
     </div>
